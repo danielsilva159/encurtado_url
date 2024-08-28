@@ -23,10 +23,6 @@ app.use(
       return response
         .status(err.statusCode)
         .json({ status: "error", message: err.message });
-    } else {
-      return response
-        .status(500)
-        .json({ status: "error", message: "Interval server error" });
     }
   }
 );

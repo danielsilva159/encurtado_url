@@ -22,20 +22,28 @@ export default class SessaoService {
     this.usuario = usuario;
   }
   async registrar({ email, senha }: Request) {
-    const usuario = await this.usuario.procurarUsuarioPorEmail(email);
-    if (!usuario) {
-      throw new AppError("Usuário não encontrado", 400);
-    }
-    const verificarSenha = await compare(senha, usuario.senha as string);
+    try {
+      const usuario = await this.usuario.procurarUsuarioPorEmail(email);
+      if (!usuario) {
+        throw new AppError("Usuário não encontrado", 400);
+      }
+      const verificarSenha = await compare(senha, usuario.senha as string);
 
-    if (!verificarSenha) {
-      throw new AppError("Credenciais invalidas", 401);
+      if (!verificarSenha) {
+        throw new AppError("Credenciais invalidas", 401);
+      }
+      const segredo = process.env.APP_SECRET || "";
+      const dados = {
+        email,
+        senha,
+      };
+      const token = sign(
+        { exp: Math.floor(Date.now() / 1000) + 60 * 60, data: dados },
+        segredo
+      );
+      return token;
+    } catch (error) {
+      throw error;
     }
-    const segredo = process.env.APP_SECRET as string;
-
-    const token = sign({ email: usuario.email, nome: usuario.nome }, segredo, {
-      expiresIn: 3000,
-    });
-    return token;
   }
 }
