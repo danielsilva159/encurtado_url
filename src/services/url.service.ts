@@ -5,10 +5,13 @@ export default class UrlService {
   constructor(urlRepositories: UrlRepositories) {
     this.urlRepositories = urlRepositories;
   }
-  async criarUrlEncurtada(url: string) {
+  async criarUrlEncurtada(url: string, baseUrl: string) {
     const urlEncurtada = md5(`${new Date()}${url}`);
     const hash6 = urlEncurtada.slice(0, 6);
-    const urls = this.urlRepositories.registrar(url, hash6);
+    const urls = this.urlRepositories.registrar(
+      url,
+      `${baseUrl}/api/v1/url/${hash6}`
+    );
     return urls;
   }
 }

@@ -7,7 +7,10 @@ export default class UrlController {
     const { url } = request.body;
     const urlRepositories = new UrlRepositories();
     const createUrlEncurtada = new UrlService(urlRepositories);
-    const urls = await createUrlEncurtada.criarUrlEncurtada(url);
+    const urls = await createUrlEncurtada.criarUrlEncurtada(
+      url,
+      request.headers.host as string
+    );
 
     return response.json(urls);
   }

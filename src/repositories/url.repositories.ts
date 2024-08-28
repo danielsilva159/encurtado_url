@@ -13,6 +13,7 @@ export default class UrlRepositories implements IUrlRepositories {
     return { url_original: url, url_encurtada: urlEncurtada };
   }
   listarUrls(): Promise<UrlInterface[]> {
-    throw new Error("Method not implemented.");
+    const urls = this.app.find();
+    return urls;
   }
 }
