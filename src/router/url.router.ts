@@ -6,5 +6,7 @@ const urlController = new UrlController();
 
 urlRouter.post("/", urlController.registrarUrl);
 urlRouter.get("/", urlController.listarUrls);
+urlRouter.put("/:id", urlController.editarUrl);
+urlRouter.delete("/:id", urlController.deletarUrl);
 
 export default urlRouter;

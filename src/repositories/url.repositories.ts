@@ -1,6 +1,7 @@
 import AppDataSource from "../databases";
 import { UrlsEntity } from "../databases/entity/urls.entity";
 import { UsuarioEntity } from "../databases/entity/usuario.entity";
+import AppError from "../erros/appError";
 import UrlInterface from "../interface/url.interface";
 import UsuarioInterface from "../interface/usuario.interface";
 import IUrlRepositories from "./IUrl.repositories";
@@ -30,14 +31,51 @@ export default class UrlRepositories implements IUrlRepositories {
     return { url_original: url, url_encurtada: urlEncurtada };
   }
   async listarUrls(id: number): Promise<UrlInterface[]> {
-    console.log(id);
-
     const urls = await this.app
       .createQueryBuilder("url")
       .leftJoinAndSelect("url.user", "usuario")
       .where({ user: { id } })
+      .select([
+        "url.url_original",
+        "url.url_encurtada",
+        "url.data_create",
+        "url.data_delete",
+      ])
       .getMany();
 
     return urls;
+  }
+
+  async editarUrl(
+    id: number,
+    idUsuario: number,
+    novaUrl: string
+  ): Promise<UrlInterface> {
+    const url = await this.app
+      .createQueryBuilder("url")
+      .leftJoinAndSelect("url.user", "usuario")
+      .where({ id, user: { id: idUsuario } })
+      .getOne();
+    if (!url) {
+      throw new AppError("Url não encontrada", 400);
+    }
+    url.url_original = novaUrl;
+    const nova = (await this.app.save(url)) as UrlInterface;
+    delete nova.user;
+    return nova;
+  }
+  async deletarUrl(id: number, idUsuario: number): Promise<UrlInterface> {
+    const url = await this.app
+      .createQueryBuilder("url")
+      .leftJoinAndSelect("url.user", "usuario")
+      .where({ id, user: { id: idUsuario } })
+      .getOne();
+    if (!url) {
+      throw new AppError("Url não encontrada", 400);
+    }
+    url.data_delete = new Date();
+    const retorno = (await this.app.save(url)) as UrlInterface;
+    delete retorno.user;
+    return retorno;
   }
 }

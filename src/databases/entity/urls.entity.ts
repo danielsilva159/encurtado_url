@@ -1,6 +1,8 @@
 import {
   BaseEntity,
   Column,
+  CreateDateColumn,
+  DeleteDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
@@ -17,8 +19,10 @@ export class UrlsEntity extends BaseEntity {
   url_original: string;
   @Column()
   url_encurtada: string;
-  @Column({ default: new Date() })
-  data_create: Date;
   @ManyToOne(() => UsuarioEntity, (usuario) => usuario.urls)
   user: UsuarioEntity;
+  @CreateDateColumn({ default: new Date() })
+  data_create: Date;
+  @DeleteDateColumn()
+  data_delete: Date;
 }

@@ -6,20 +6,14 @@ import AppError from "../erros/appError";
 
 export default class UrlController {
   async registrarUrl(request: Request, response: Response) {
-    const email = request.user ? request.user.email : "";
+    const id = request.user ? request.user.id : null;
     const { url } = request.body;
-    const urlRepositories = new UrlRepositories();
-    const usuarioRepositories = new UsuarioRepositories();
-    const createUrlEncurtada = new UrlService(
-      urlRepositories,
-      usuarioRepositories
-    );
-    console.log("email", email);
+    const createUrlEncurtada = new UrlService();
 
     const urls = await createUrlEncurtada.criarUrlEncurtada(
       url,
       request.headers.host as string,
-      email
+      id
     );
 
     return response.json(urls);
@@ -29,11 +23,25 @@ export default class UrlController {
     if (!request.user) {
       throw new AppError("Usuario não logado", 400);
     }
-    const email = request.user.email;
-    const urlRepositories = new UrlRepositories();
-    const usuarioRepositories = new UsuarioRepositories();
-    const urlService = new UrlService(urlRepositories, usuarioRepositories);
-    const urls = await urlService.listarUrls(email);
+    const id = request.user.id;
+    const urlService = new UrlService();
+    const urls = await urlService.listarUrls(id);
     return response.json(urls);
+  }
+
+  async editarUrl(request: Request, response: Response) {
+    const { id } = request.params;
+    const { novaUrl } = request.body;
+    const idUsuario = request.user.id;
+    const urlService = new UrlService();
+    const retorno = await urlService.editarUrl(Number(id), idUsuario, novaUrl);
+    return response.json(retorno);
+  }
+  async deletarUrl(request: Request, response: Response) {
+    const { id } = request.params;
+    const idUsuario = request.user.id;
+    const urlService = new UrlService();
+    const retorno = await urlService.deleteUrl(Number(id), idUsuario);
+    return response.json(retorno);
   }
 }
