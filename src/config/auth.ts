@@ -16,7 +16,7 @@ class Auth {
   ) {
     const authHeader = request.headers.authorization;
     const rota = ROTAS_PUBLICAS.find(
-      (rota) => request.method === rota.method && request.url === rota.url
+      (rota) => request.method === rota.method && request.url.includes(rota.url)
     );
     if (rota && !authHeader) {
       return next();

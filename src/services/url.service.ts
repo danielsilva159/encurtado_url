@@ -1,5 +1,6 @@
 import md5 from "md5";
 import UrlRepositories from "../repositories/url.repositories";
+import AppError from "../erros/appError";
 export default class UrlService {
   private urlRepositories: UrlRepositories = new UrlRepositories();
   async criarUrlEncurtada(
@@ -7,6 +8,17 @@ export default class UrlService {
     baseUrl: string,
     id: number | null = null
   ) {
+    console.log("url", url);
+
+    const regex = /^https?:\/\/.*/i;
+    console.log("regex", regex.test(url));
+
+    if (!regex.test(url)) {
+      throw new AppError(
+        "Sua url não tem http ou https, por favor coloque",
+        400
+      );
+    }
     const urlEncurtada = md5(`${new Date()}${url}`);
     const hash6 = urlEncurtada.slice(0, 6);
     const urls = this.urlRepositories.registrar(
@@ -28,5 +40,14 @@ export default class UrlService {
 
   async deleteUrl(id: number, idUsuario: number) {
     return await this.urlRepositories.deletarUrl(id, idUsuario);
+  }
+  async abrirURL(url: string) {
+    const urlEncontrada = await this.urlRepositories.procurarPorUrl(url);
+    console.log("url", urlEncontrada);
+
+    if (!urlEncontrada) {
+      throw new AppError("Essa url não existe", 400);
+    }
+    return urlEncontrada.url_original;
   }
 }

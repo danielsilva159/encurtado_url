@@ -78,4 +78,8 @@ export default class UrlRepositories implements IUrlRepositories {
     delete retorno.user;
     return retorno;
   }
+  async procurarPorUrl(url: string) {
+    const retorno = await this.app.findOne({ where: { url_encurtada: url } });
+    return retorno;
+  }
 }

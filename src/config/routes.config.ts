@@ -1,4 +1,8 @@
-const ROTAS_PUBLICAS: any[] = [
+interface Rota {
+  method: string;
+  url: string;
+}
+const ROTAS_PUBLICAS: Rota[] = [
   {
     method: "POST",
     url: "/api/v1/url",
@@ -6,6 +10,10 @@ const ROTAS_PUBLICAS: any[] = [
   {
     method: "POST",
     url: "/api/v1/sessao",
+  },
+  {
+    method: "GET",
+    url: "/api/v1/url/",
   },
 ];
 
