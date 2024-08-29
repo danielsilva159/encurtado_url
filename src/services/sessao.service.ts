@@ -35,7 +35,7 @@ export default class SessaoService {
       const segredo = process.env.APP_SECRET || "";
       const dados = {
         email,
-        senha,
+        nome: usuario.nome,
       };
       const token = sign(
         { exp: Math.floor(Date.now() / 1000) + 60 * 60, data: dados },

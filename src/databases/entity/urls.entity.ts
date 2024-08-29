@@ -3,12 +3,13 @@ import {
   Column,
   Entity,
   JoinColumn,
+  ManyToOne,
   OneToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { UsuarioEntity } from "./usuario.entity";
 
-@Entity()
+@Entity({ name: "urls" })
 export class UrlsEntity extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
@@ -18,7 +19,6 @@ export class UrlsEntity extends BaseEntity {
   url_encurtada: string;
   @Column({ default: new Date() })
   data_create: Date;
-  @OneToOne(() => UsuarioEntity)
-  @JoinColumn()
+  @ManyToOne(() => UsuarioEntity, (usuario) => usuario.urls)
   user: UsuarioEntity;
 }

@@ -1,10 +1,11 @@
 import "reflect-metadata";
 import express, { NextFunction, Request, Response } from "express";
-import "./config/env.ts";
+import "./config/env";
 import "express-async-errors";
 import routes from "./router";
-import AppError from "./erros/appError.ts";
-import AppDataSource from "./databases/index.ts";
+import AppError from "./erros/appError";
+import AppDataSource from "./databases/index";
+import Auth from "./config/auth";
 
 AppDataSource.initialize()
   .then(() => {
@@ -14,8 +15,9 @@ AppDataSource.initialize()
     console.log(error);
   });
 const app = express();
+const auth = new Auth();
 app.use(express.json());
-
+app.use(auth.verificarToken);
 app.use(routes);
 app.use(
   (err: Error, request: Request, response: Response, next: NextFunction) => {
@@ -24,6 +26,11 @@ app.use(
         .status(err.statusCode)
         .json({ status: "error", message: err.message });
     }
+    return response.status(500).json({
+      err,
+      status: "error",
+      message: err.message,
+    });
   }
 );
 app.listen(3333, () => {
