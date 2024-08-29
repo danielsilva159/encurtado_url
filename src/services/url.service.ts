@@ -2,6 +2,7 @@ import UrlRepositories from "../repositories/url.repositories";
 import md5 from "md5";
 import UsuarioRepositories from "../repositories/usuario.repositories";
 import UsuarioInterface from "../interface/usuario.interface";
+import AppError from "../erros/appError";
 export default class UrlService {
   private urlRepositories: UrlRepositories;
   private usuarioRepositories: UsuarioRepositories;
@@ -28,6 +29,20 @@ export default class UrlService {
       `${baseUrl}/api/v1/url/${hash6}`,
       id
     );
+    return urls;
+  }
+
+  async listarUrls(email: string) {
+    const usuario = await this.usuarioRepositories.procurarUsuarioPorEmail(
+      email
+    );
+    if (!usuario) {
+      throw new AppError("Usuario não encontrado", 400);
+    }
+
+    const id = usuario.id as number;
+
+    const urls = await this.urlRepositories.listarUrls(id);
     return urls;
   }
 }
