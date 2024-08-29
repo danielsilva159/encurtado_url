@@ -13,9 +13,9 @@ Consulte **[Implantação](#-implanta%C3%A7%C3%A3o)** para saber como implantar 
 De que coisas você precisa para instalar o software e como instalá-lo?
 
 ```
-node 20
-postgres
-postman ou qualquer outra ferramente para executar requisição http
+* node 20
+* postgres
+* postman ou qualquer outra ferramente para executar requisição http
 ```
 
 ### 🔧 Instalação
@@ -97,5 +97,3 @@ Este projeto está sob a licença (sua licença) - veja o arquivo [LICENSE.md](h
 * etc.
 
 
----
-⌨️ com ❤️ por [Armstrong Lohãns](https://gist.github.com/lohhans) 😊

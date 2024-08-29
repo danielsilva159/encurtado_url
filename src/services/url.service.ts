@@ -44,6 +44,7 @@ export default class UrlService {
     if (!urlEncontrada) {
       throw new AppError("Essa url não existe", 400);
     }
+    await this.urlRepositories.adicionarVisualizacao(urlEncontrada.id);
     return urlEncontrada.url_original;
   }
 }

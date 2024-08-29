@@ -9,4 +9,5 @@ export default interface IUrlRepositories {
     novaUrl: string
   ): Promise<UrlInterface>;
   deletarUrl(id: number, idUsuario: number): Promise<UrlInterface>;
+  adicionarVisualizacao(id: number): void;
 }

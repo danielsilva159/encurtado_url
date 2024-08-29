@@ -4,10 +4,9 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
-  JoinColumn,
   ManyToOne,
-  OneToOne,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from "typeorm";
 import { UsuarioEntity } from "./usuario.entity";
 
@@ -19,10 +18,16 @@ export class UrlsEntity extends BaseEntity {
   url_original: string;
   @Column()
   url_encurtada: string;
+  @Column({ default: 0 })
+  qtdVisualicao: number;
+
   @ManyToOne(() => UsuarioEntity, (usuario) => usuario.urls)
   user: UsuarioEntity;
-  @CreateDateColumn({ default: new Date() })
+
+  @CreateDateColumn()
   data_create: Date;
+  @UpdateDateColumn()
+  data_update: Date;
   @DeleteDateColumn()
   data_delete: Date;
 }

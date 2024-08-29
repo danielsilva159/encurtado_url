@@ -82,4 +82,11 @@ export default class UrlRepositories implements IUrlRepositories {
     const retorno = await this.app.findOne({ where: { url_encurtada: url } });
     return retorno;
   }
+  async adicionarVisualizacao(id: number): Promise<void> {
+    const url = await this.app.findOne({ where: { id } });
+    if (url) {
+      url.qtdVisualicao = url.qtdVisualicao + 1;
+      this.app.save(url);
+    }
+  }
 }
