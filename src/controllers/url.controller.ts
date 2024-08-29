@@ -46,14 +46,11 @@ export default class UrlController {
   }
 
   async urlAcessada(request: Request, response: Response) {
-    console.log(request);
-
     const url = `${request.headers.host as string}/api/v1/url/${
       request.params.id
     }`;
     const urlService = new UrlService();
     const urlEncontrada = await urlService.abrirURL(url);
-    console.log(urlEncontrada);
 
     return response.redirect(urlEncontrada);
   }

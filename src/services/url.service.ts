@@ -8,10 +8,7 @@ export default class UrlService {
     baseUrl: string,
     id: number | null = null
   ) {
-    console.log("url", url);
-
     const regex = /^https?:\/\/.*/i;
-    console.log("regex", regex.test(url));
 
     if (!regex.test(url)) {
       throw new AppError(
@@ -43,7 +40,6 @@ export default class UrlService {
   }
   async abrirURL(url: string) {
     const urlEncontrada = await this.urlRepositories.procurarPorUrl(url);
-    console.log("url", urlEncontrada);
 
     if (!urlEncontrada) {
       throw new AppError("Essa url não existe", 400);
