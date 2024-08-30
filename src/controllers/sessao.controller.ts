@@ -11,12 +11,4 @@ export default class SessaoController {
 
     return response.json(sessao);
   }
-
-  async verificarToken(
-    request: Request,
-    response: Response,
-    next: NextFunction
-  ) {
-    const token = request.headers.authorization?.split("Bearer")[1].trim();
-  }
 }

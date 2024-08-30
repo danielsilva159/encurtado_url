@@ -17,7 +17,7 @@ const ROTAS_PUBLICAS: Rota[] = [
   },
   {
     method: "GET",
-    url: "/swagger.json",
+    url: "/api-docs",
   },
   {
     method: "POST",

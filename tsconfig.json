@@ -27,7 +27,7 @@
     /* Modules */
     "module": "commonjs",                                /* Specify what module code is generated. */
     "rootDir": "src",                                    /* Specify the root folder within your source files. */
-    // "moduleResolution": "node10",                     /* Specify how TypeScript looks up a file from a given module specifier. */
+    "moduleResolution": "node",                     /* Specify how TypeScript looks up a file from a given module specifier. */
     //"baseUrl": "./",                                  /* Specify the base directory to resolve non-relative module names. */
     /*"paths": {
       "@config/*": ["src/config/*"],
@@ -39,7 +39,7 @@
       "@types",
       "./node_modules/@types"
      ],                                  /* Specify multiple folders that act like './node_modules/@types'. */
-    // "types": [],                                      /* Specify type package names to be included without being referenced in a source file. */
+     "types": ["jest"],                                      /* Specify type package names to be included without being referenced in a source file. */
     // "allowUmdGlobalAccess": true,                     /* Allow accessing UMD globals from modules. */
     // "moduleSuffixes": [],                             /* List of file name suffixes to search when resolving a module. */
     // "allowImportingTsExtensions": true,               /* Allow imports to include TypeScript file extensions. Requires '--moduleResolution bundler' and either '--noEmit' or '--emitDeclarationOnly' to be set. */

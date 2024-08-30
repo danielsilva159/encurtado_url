@@ -7,7 +7,6 @@ import AppError from "./erros/appError";
 import AppDataSource from "./databases/index";
 import Auth from "./config/auth";
 import swaggerUi from "swagger-ui-express";
-import swaggerDocument from "../public/swagger.json";
 
 AppDataSource.initialize()
   .then(() => {
@@ -21,15 +20,6 @@ AppDataSource.initialize()
 const app = express();
 const auth = new Auth();
 app.use(express.json());
-app.use(
-  "/docs",
-  swaggerUi.serve,
-  swaggerUi.setup(swaggerDocument, {
-    swaggerOptions: {
-      url: "public/swagger.json",
-    },
-  })
-);
 app.use(auth.verificarToken);
 app.use(routes);
 app.use(

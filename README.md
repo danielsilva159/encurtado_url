@@ -36,7 +36,7 @@ Diga como essa etapa será:
 
 Mencione as ferramentas que você usou para criar seu projeto
 
-* [Nodejs](https://nodejs.org/en)
+* [Nodejs](https://nodejs.org/en) - Usado como nosso backend
 * [postman](https://www.postman.com/) - Usado para Executar as requisições http
 * [postgresql](https://www.postgresql.org/) - Usada para nossa base de dados
 
