@@ -15,6 +15,14 @@ const ROTAS_PUBLICAS: Rota[] = [
     method: "GET",
     url: "/api/v1/url/",
   },
+  {
+    method: "GET",
+    url: "/swagger.json",
+  },
+  {
+    method: "POST",
+    url: "/api/v1/usuario",
+  },
 ];
 
 export default ROTAS_PUBLICAS;

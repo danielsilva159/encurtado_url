@@ -15,10 +15,11 @@ class Auth {
     next: NextFunction
   ) {
     const authHeader = request.headers.authorization;
-    const rota = ROTAS_PUBLICAS.find(
+    const rotas = ROTAS_PUBLICAS.find(
       (rota) => request.method === rota.method && request.url.includes(rota.url)
     );
-    if (rota && !authHeader) {
+
+    if (rotas && !authHeader) {
       return next();
     }
 

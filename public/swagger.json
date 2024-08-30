@@ -1,0 +1,98 @@
+{   
+    "swagger": "2.0",
+    "title" : "Encurtador API Documentation",
+    "description" : "Encurtador API",
+    "license": {
+        "name": "MIT",
+        "url": "http://localhost:3333"
+      },
+      "version": "1.0.0",
+      "host": "localhost:3333",
+      "basePath": "/api/v1/",
+      "tags": [
+        {
+            "name": "Usuario",
+            "description": "Rotas para os endPoints do usuarios"
+          },
+          {
+            "name": "Url",
+            "description": "Rotas para os endPoints relacionados a url"
+          },
+          {
+            "name": "Sessão",
+            "description": "Rotas relacinadas a sessão"
+          }
+      ],
+      "schemes": ["http","https"],
+      "consumes": ["application/json"],
+      "produces": ["application/json"],
+      "paths" :{
+       
+        "/usuario":{
+          "post":{
+            "tags": ["Usuario"],
+            "summary": "API Endpoint para criar usuário",
+            "description" : "Criar novo usuario na base de dados",
+            "parameters":[
+                {
+                    "in": "body",
+                    "name": "body",
+                    "description": "Dados do novo usuário",
+                    "required": true,
+                    "schema": {
+                      "type": "object",
+                      "properties": {
+                        "nome": {
+                          "type": "string",
+                          "example": "João da Silva"
+                        },
+                        "email": {
+                          "type": "string",
+                          "format": "email",
+                          "example": "joao@exemplo.com"
+                        },
+                        "senha": {
+                          "type": "string",
+                          "format": "password",
+                          "example": "minhasenha123"
+                        }
+                      },
+                      "required": ["nome", "email", "senha"]
+                    }
+                  }
+            ],
+            "produces" : ["application/json"],
+            "responses":{
+                "200":{
+                    "nome":"nome do usuário",
+                    "email": "email do usuario",
+                    "id": "id do usuario"
+                }
+            },
+            "definitions": {
+                "NovoUsuario": {
+      "type": "object",
+      "required": ["nome", "email", "senha"],
+      "properties": {
+        "nome": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string",
+          "format": "email"
+        },
+        "senha": {
+          "type": "string",
+          "format": "password"
+        }
+      }
+    }
+            }
+          }},
+          "url":{
+        
+          }
+        
+      },
+      "definitions":{}
+}
