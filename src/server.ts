@@ -14,6 +14,8 @@ AppDataSource.initialize()
     console.log("Base de Dado iniciada com sucesso");
   })
   .catch((error) => {
+    console.log("senha", Number(process.env.POSTGRES_PORT));
+
     console.log(error);
   });
 const app = express();
