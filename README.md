@@ -30,6 +30,7 @@ Diga como essa etapa será:
 * abra o terminal e execute o comando npm install para instalar os pacotes
 * vá no arquivo .env que fica na raiz do projeto e faça as alterações relacionado a sua base de dados 
 * execute o npm start no terminal, para inicial o projeto
+* Após iniciar o projeto acesse a rota /api-docs para acessa o swagger da aplicação
 ```
 
 ## 🛠️ Construído com
