@@ -1,8 +1,6 @@
 import { Request, Response } from "express";
-import UrlRepositories from "../repositories/url.repositories";
-import UrlService from "../services/url.service";
-import UsuarioRepositories from "../repositories/usuario.repositories";
 import AppError from "../erros/appError";
+import UrlService from "../services/url.service";
 
 export default class UrlController {
   async registrarUrl(request: Request, response: Response) {
@@ -21,8 +19,9 @@ export default class UrlController {
 
   async listarUrls(request: Request, response: Response) {
     if (!request.user) {
-      throw new AppError("Usuario não logado", 400);
+      throw new AppError("Usuario não logado", 401);
     }
+
     const id = request.user.id;
     const urlService = new UrlService();
     const urls = await urlService.listarUrls(id);

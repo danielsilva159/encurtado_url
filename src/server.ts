@@ -1,20 +1,17 @@
-import "reflect-metadata";
 import express, { NextFunction, Request, Response } from "express";
-import "./config/env";
 import "express-async-errors";
-import routes from "./router";
-import AppError from "./erros/appError";
-import AppDataSource from "./databases/index";
+import "reflect-metadata";
 import Auth from "./config/auth";
-import swaggerUi from "swagger-ui-express";
+import "./config/env";
+import AppDataSource from "./databases/index";
+import AppError from "./erros/appError";
+import routes from "./router";
 
 AppDataSource.initialize()
   .then(() => {
     console.log("Base de Dado iniciada com sucesso");
   })
   .catch((error) => {
-    console.log("senha", Number(process.env.POSTGRES_PORT));
-
     console.log(error);
   });
 const app = express();
@@ -36,6 +33,6 @@ app.use(
     });
   }
 );
-app.listen(3333, () => {
-  console.log("Server iniciado na porta 3333");
+app.listen(process.env.PORT_SERVER, () => {
+  console.log(`Server iniciado na porta ${process.env.PORT_SERVER}`);
 });

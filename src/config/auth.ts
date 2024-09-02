@@ -1,12 +1,7 @@
 import { NextFunction, Request, Response } from "express";
+import { verify } from "jsonwebtoken";
 import AppError from "../erros/appError";
-import { decode, JwtPayload, verify } from "jsonwebtoken";
 import ROTAS_PUBLICAS from "./routes.config";
-
-interface Usuario {
-  nome: string;
-  email: string;
-}
 
 class Auth {
   async verificarToken(

@@ -1,9 +1,7 @@
 import AppDataSource from "../databases";
 import { UrlsEntity } from "../databases/entity/urls.entity";
-import { UsuarioEntity } from "../databases/entity/usuario.entity";
 import AppError from "../erros/appError";
 import UrlInterface from "../interface/url.interface";
-import UsuarioInterface from "../interface/usuario.interface";
 import IUrlRepositories from "./IUrl.repositories";
 interface Query {
   url_original: string;
@@ -36,6 +34,7 @@ export default class UrlRepositories implements IUrlRepositories {
       .leftJoinAndSelect("url.user", "usuario")
       .where({ user: { id } })
       .select([
+        "url.id",
         "url.url_original",
         "url.url_encurtada",
         "url.data_create",
